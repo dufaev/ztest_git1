@@ -1,0 +1,103 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZUF_GW_FLIGHT_V1_SRV" xml:lang="ru" sap:schema-version="1">
+            <EntityType Name="et_scarr" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Авиакомпания" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Carrname" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Авиакомпания" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Currcode" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="ВнутрВлтАвиакомп" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Url" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NPScarrToSpfli" Relationship="ZUF_GW_FLIGHT_V1_SRV.ScarrToSpfli" FromRole="FromRole_ScarrToSpfli" ToRole="ToRole_ScarrToSpfli"/>
+            </EntityType>
+            <EntityType Name="et_spfli" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Авиакомпания" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Номер рейса" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Deptime" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Вылет" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Arrtime" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Время прибытия" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Countryfr" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Страна" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cityfrom" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="ПнктОтправл" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Airpfrom" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="АэропортОтправл" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Countryto" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Страна" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cityto" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Пункт прибытия" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Airpto" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="АэропортПрибыт" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Distance" Type="Edm.Decimal" Nullable="false" Precision="9" Scale="4" sap:unit="Distid" sap:label="Pасстояние" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Distid" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Расстояние в:" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="Fltype" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Чартер" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Period" Type="Edm.Byte" Nullable="false" sap:label="n дн. позже" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NPSpfliToSflight" Relationship="ZUF_GW_FLIGHT_V1_SRV.SpfliToSflight" FromRole="FromRole_SpfliToSflight" ToRole="ToRole_SpfliToSflight"/>
+            </EntityType>
+            <EntityType Name="et_sflight" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Авиакомпания" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Номер рейса" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fldate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:label="ДатаРейса" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Price" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unit="Currency" sap:label="ЦенаРейса" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="ВнутрВлтАвиакомп" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Planetype" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="ТипСамолета" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Seatsmax" Type="Edm.Int32" Nullable="false" sap:label="МксВместим эконом-кл" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Seatsocc" Type="Edm.Int32" Nullable="false" sap:label="ЗанМст-ЭкономКл" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Paymentsum" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="3" sap:unit="Currency" sap:label="ТекущСумма" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SeatsmaxB" Type="Edm.Int32" Nullable="false" sap:label="МаксВмест- бизн.-кл." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SeatsoccB" Type="Edm.Int32" Nullable="false" sap:label="Бзн-кл.: занято" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SeatsmaxF" Type="Edm.Int32" Nullable="false" sap:label="Вместимость - 1-й кл" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SeatsoccF" Type="Edm.Int32" Nullable="false" sap:label="1-й кл.: занято" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="SpfliToSflight" sap:content-version="1">
+                <End Type="ZUF_GW_FLIGHT_V1_SRV.et_spfli" Multiplicity="1" Role="FromRole_SpfliToSflight"/>
+                <End Type="ZUF_GW_FLIGHT_V1_SRV.et_sflight" Multiplicity="*" Role="ToRole_SpfliToSflight"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_SpfliToSflight">
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_SpfliToSflight">
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ScarrToSpfli" sap:content-version="1">
+                <End Type="ZUF_GW_FLIGHT_V1_SRV.et_scarr" Multiplicity="1" Role="FromRole_ScarrToSpfli"/>
+                <End Type="ZUF_GW_FLIGHT_V1_SRV.et_spfli" Multiplicity="*" Role="ToRole_ScarrToSpfli"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ScarrToSpfli">
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ScarrToSpfli">
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZUF_GW_FLIGHT_V1_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="et_scarrSet" EntityType="ZUF_GW_FLIGHT_V1_SRV.et_scarr" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="et_spfliSet" EntityType="ZUF_GW_FLIGHT_V1_SRV.et_spfli" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="et_sflightSet" EntityType="ZUF_GW_FLIGHT_V1_SRV.et_sflight" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="SpfliToSflightSet" Association="ZUF_GW_FLIGHT_V1_SRV.SpfliToSflight" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="et_spfliSet" Role="FromRole_SpfliToSflight"/>
+                    <End EntitySet="et_sflightSet" Role="ToRole_SpfliToSflight"/>
+                </AssociationSet>
+                <AssociationSet Name="ScarrToSpfliSet" Association="ZUF_GW_FLIGHT_V1_SRV.ScarrToSpfli" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="et_scarrSet" Role="FromRole_ScarrToSpfli"/>
+                    <End EntitySet="et_spfliSet" Role="ToRole_ScarrToSpfli"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZUF_GW_FLIGHT_V1_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZUF_GW_FLIGHT_V1_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
